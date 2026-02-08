@@ -13,7 +13,7 @@ body {
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  font-family: 'Arial', sans-serif;
+  font-family: Arial, sans-serif;
 }
 
 .container {
@@ -56,7 +56,6 @@ button {
 
 .heart {
   position: absolute;
-  font-size: 24px;
   animation: float 6s linear infinite;
   opacity: 0.8;
 }
@@ -80,10 +79,12 @@ button {
 <audio id="music" loop>
   <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
 </audio>
+
 <script>
 const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
-const message = document.getElementById("message");
+const message = document.getElementById("msg");
+const music = document.getElementById("music");
 
 let noClicks = 0;
 let speed = 300;
@@ -99,21 +100,17 @@ const funnyTexts = [
 noBtn.addEventListener("click", () => {
   noClicks++;
 
-  // Change text
   message.innerText = funnyTexts[noClicks % funnyTexts.length];
 
-  // Move NO button randomly
   const x = Math.random() * (window.innerWidth - 120);
   const y = Math.random() * (window.innerHeight - 120);
 
   noBtn.style.left = x + "px";
   noBtn.style.top = y + "px";
 
-  // Increase speed
   speed = Math.max(80, speed - 50);
   noBtn.style.transition = `all ${speed}ms ease`;
 
-  // After 4 tries → force YES 😄
   if (noClicks >= 4) {
     yesBtn.click();
   }
@@ -121,18 +118,10 @@ noBtn.addEventListener("click", () => {
 
 yesBtn.addEventListener("click", () => {
   message.innerText = "Yayyy 💖 I knew it 😍";
-
-  // Play music
-  const music = new Audio(
-    "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
-  );
   music.play();
-
-  // Celebration hearts
   setInterval(createHeart, 300);
 });
 
-// Floating hearts 💕
 function createHeart() {
   const heart = document.createElement("div");
   heart.className = "heart";
@@ -144,8 +133,5 @@ function createHeart() {
 }
 </script>
 
-
 </body>
 </html>
-
-
