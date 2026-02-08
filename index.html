@@ -80,61 +80,70 @@ button {
 <audio id="music" loop>
   <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
 </audio>
-
 <script>
 const noBtn = document.getElementById("noBtn");
-const msg = document.getElementById("msg");
-const music = document.getElementById("music");
+const yesBtn = document.getElementById("yesBtn");
+const message = document.getElementById("message");
 
-let speed = 200;
-let count = 0;
+let noClicks = 0;
+let speed = 300;
 
-const messages = [
+const funnyTexts = [
   "Think again 🤔",
-  "Oops… not allowed 😜",
-  "Are you sure? 💕",
-  "Come on Panchi 😍",
-  "you will miss 🤪",
-  "This NO is broken 😂"
+  "Are you sure? 😏",
+  "Last chance 😜",
+  "Don’t break my heart 💔",
+  "Oops, try YES 😆"
 ];
 
-noBtn.addEventListener("mouseover", moveNo);
-noBtn.addEventListener("click", moveNo);
+noBtn.addEventListener("click", () => {
+  noClicks++;
 
-function moveNo() {
-  count++;
-  speed = Math.max(50, speed - 20);
+  // Change text
+  message.innerText = funnyTexts[noClicks % funnyTexts.length];
 
-  const x = Math.random() * (window.innerWidth - 100);
-  const y = Math.random() * (window.innerHeight - 100);
+  // Move NO button randomly
+  const x = Math.random() * (window.innerWidth - 120);
+  const y = Math.random() * (window.innerHeight - 120);
 
   noBtn.style.left = x + "px";
   noBtn.style.top = y + "px";
 
-  msg.innerText = messages[count % messages.length];
-}
+  // Increase speed
+  speed = Math.max(80, speed - 50);
+  noBtn.style.transition = `all ${speed}ms ease`;
 
-document.getElementById("yesBtn").onclick = () => {
-  document.querySelector(".container").innerHTML =
-    "<h1>Yayyy 💖🥰</h1><p>You are my valentine ❤️ you made my day, Panchi 💕</p>";
+  // After 4 tries → force YES 😄
+  if (noClicks >= 4) {
+    yesBtn.click();
+  }
+});
+
+yesBtn.addEventListener("click", () => {
+  message.innerText = "Yayyy 💖 I knew it 😍";
+
+  // Play music
+  const music = new Audio(
+    "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+  );
   music.play();
-};
 
-<script>
+  // Celebration hearts
+  setInterval(createHeart, 300);
+});
+
+// Floating hearts 💕
 function createHeart() {
   const heart = document.createElement("div");
   heart.className = "heart";
   heart.innerText = "💖";
-  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.left = Math.random() * window.innerWidth + "px";
+  heart.style.fontSize = Math.random() * 20 + 20 + "px";
   document.body.appendChild(heart);
-
-  setTimeout(() => {
-    heart.remove();
-  }, 6000);
+  setTimeout(() => heart.remove(), 6000);
 }
-
-setInterval(createHeart, 500);
 </script>
+
 
 </body>
 </html>
