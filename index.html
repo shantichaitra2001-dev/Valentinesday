@@ -13,12 +13,12 @@ body {
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  font-family: 'Arial', sans-serif;
+  font-family: Arial, sans-serif;
 }
 
 .container {
   text-align: center;
-  background: rgba(255,255,255,0.9);
+  background: rgba(255,255,255,0.95);
   padding: 30px 35px;
   border-radius: 20px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.25);
@@ -27,7 +27,6 @@ body {
 
 h1 {
   color: #e91e63;
-  margin-bottom: 20px;
 }
 
 button {
@@ -74,14 +73,14 @@ button {
 <body>
 
 <div class="container">
-  <h1>Will you be my Valentine, Panchi 💖</h1>
+  <h1>Will you be my Valentine, Manju? 💖</h1>
   <button id="yesBtn">Yes 😍</button>
   <button id="noBtn">No 🙈</button>
   <div class="message" id="msg"></div>
 </div>
 
 <audio id="music" loop>
-  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
 </audio>
 
 <script>
@@ -91,25 +90,59 @@ const msg = document.getElementById("msg");
 const music = document.getElementById("music");
 
 let noClicks = 0;
-let speed = 300;
+let speed = 350;
 
 const naughtyMessages = [
-  "Think again 😏",
   "Aww come on 😘",
+  "Playing hard to get? 😈",
+  "That NO was cute 😏",
   "Don’t tease me 😜",
-  "My heart is already yours 💓",
-  "That NO is very suspicious 😏",
-  "Stop flirting and click YES 😆",
   "You know you want to 😘",
-  "Okay… last NO was cute 😍",
-  "Enough drama, be mine 😈❤️",
-  "paying hard to get? 😈"
+  "Stop flirting 😆",
+  "My heart says YES already 💓",
+  "Still running away? 😈",
+  "Click YES, I dare you 😏",
+  "Okay now you’re just teasing 😍"
 ];
 
-noBtn.addEventListener("click", () => {
+function moveNoButton() {
   noClicks++;
-
   msg.innerText = naughtyMessages[noClicks % naughtyMessages.length];
+
+  setTimeout(() => {
+    const x = Math.random() * (window.innerWidth - 120);
+    const y = Math.random() * (window.innerHeight - 120);
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+    speed = Math.max(90, speed - 30);
+    noBtn.style.transition = `all ${speed}ms ease`;
+  }, 80);
+}
+
+// Works on mobile + desktop
+noBtn.addEventListener("click", moveNoButton);
+noBtn.addEventListener("mouseover", moveNoButton);
+noBtn.addEventListener("touchstart", moveNoButton);
+
+yesBtn.addEventListener("click", () => {
+  msg.innerText = "Yesss 😍💖 You just made my heart melt!";
+  music.play();
+  setInterval(createHeart, 300);
+});
+
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerText = "💖";
+  heart.style.left = Math.random() * window.innerWidth + "px";
+  heart.style.fontSize = Math.random() * 20 + 20 + "px";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 6000);
+}
+</script>
+
+</body>
+</html>
 
   const x = Math.random() * (window.innerWidth - 120);
   const y = Math.random() * (window.innerHeight - 120);
