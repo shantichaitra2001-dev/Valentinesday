@@ -13,28 +13,30 @@ body {
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  font-family: Arial, sans-serif;
+  font-family: 'Arial', sans-serif;
 }
 
 .container {
   text-align: center;
   background: rgba(255,255,255,0.9);
-  padding: 30px;
+  padding: 30px 35px;
   border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  position: relative;
 }
 
 h1 {
   color: #e91e63;
+  margin-bottom: 20px;
 }
 
 button {
-  padding: 12px 25px;
+  padding: 12px 26px;
   font-size: 18px;
   border: none;
   border-radius: 30px;
   cursor: pointer;
-  margin: 15px;
+  margin: 10px;
 }
 
 #yesBtn {
@@ -52,12 +54,14 @@ button {
   margin-top: 15px;
   font-size: 18px;
   color: #ff4081;
+  min-height: 24px;
 }
 
 .heart {
   position: absolute;
+  font-size: 24px;
   animation: float 6s linear infinite;
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
 @keyframes float {
@@ -70,8 +74,8 @@ button {
 <body>
 
 <div class="container">
-  <h1>Will you be my Valentine, Panchi? 💖</h1>
-  <button id="yesBtn">Yes 💕</button>
+  <h1>Will you be my Valentine, Panchi 💖</h1>
+  <button id="yesBtn">Yes 😍</button>
   <button id="noBtn">No 🙈</button>
   <div class="message" id="msg"></div>
 </div>
@@ -83,24 +87,29 @@ button {
 <script>
 const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
-const message = document.getElementById("msg");
+const msg = document.getElementById("msg");
 const music = document.getElementById("music");
 
 let noClicks = 0;
 let speed = 300;
 
-const funnyTexts = [
-  "Think again 🤔",
-  "Are you sure? 😏",
-  "Last chance 😜",
-  "Don’t break my heart 💔",
-  "Oops, try YES 😆"
+const naughtyMessages = [
+  "Think again 😏",
+  "Aww come on 😘",
+  "Playing hard to get? 😈",
+  "Don’t tease me 😜",
+  "My heart is already yours 💓",
+  "That NO is very suspicious 😏",
+  "Stop flirting and click YES 😆",
+  "You know you want to 😘",
+  "Okay… last NO was cute 😍",
+  "Enough drama, be mine 😈❤️"
 ];
 
 noBtn.addEventListener("click", () => {
   noClicks++;
 
-  message.innerText = funnyTexts[noClicks % funnyTexts.length];
+  msg.innerText = naughtyMessages[noClicks % naughtyMessages.length];
 
   const x = Math.random() * (window.innerWidth - 120);
   const y = Math.random() * (window.innerHeight - 120);
@@ -108,16 +117,12 @@ noBtn.addEventListener("click", () => {
   noBtn.style.left = x + "px";
   noBtn.style.top = y + "px";
 
-  speed = Math.max(80, speed - 50);
+  speed = Math.max(70, speed - 35);
   noBtn.style.transition = `all ${speed}ms ease`;
-
-  if (noClicks >= 4) {
-    yesBtn.click();
-  }
 });
 
 yesBtn.addEventListener("click", () => {
-  message.innerText = "Yayyy 💖 I knew it 😍";
+  msg.innerText = "Yesss 😍💖 You just made my heart skip a beat!";
   music.play();
   setInterval(createHeart, 300);
 });
