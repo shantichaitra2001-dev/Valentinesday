@@ -120,13 +120,17 @@ document.getElementById("yesBtn").onclick = () => {
   music.play();
 };
 
+<script>
 function createHeart() {
   const heart = document.createElement("div");
   heart.className = "heart";
   heart.innerText = "💖";
   heart.style.left = Math.random() * 100 + "vw";
   document.body.appendChild(heart);
-  setTimeout(() => heart.remove(), 6000);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 6000);
 }
 
 setInterval(createHeart, 500);
@@ -134,4 +138,5 @@ setInterval(createHeart, 500);
 
 </body>
 </html>
+
 
