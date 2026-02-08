@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Will you be my Valentine 💖</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  font-family: 'Arial', sans-serif;
+}
+
+.container {
+  text-align: center;
+  background: rgba(255,255,255,0.9);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+h1 {
+  color: #e91e63;
+}
+
+button {
+  padding: 12px 25px;
+  font-size: 18px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  margin: 15px;
+}
+
+#yesBtn {
+  background: #e91e63;
+  color: white;
+}
+
+#noBtn {
+  background: #555;
+  color: white;
+  position: absolute;
+}
+
+.message {
+  margin-top: 15px;
+  font-size: 18px;
+  color: #ff4081;
+}
+
+.heart {
+  position: absolute;
+  font-size: 24px;
+  animation: float 6s linear infinite;
+  opacity: 0.8;
+}
+
+@keyframes float {
+  from { transform: translateY(100vh); }
+  to { transform: translateY(-10vh); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Will you be my Valentine, Panchi? 💖</h1>
+  <button id="yesBtn">Yes 💕</button>
+  <button id="noBtn">No 🙈</button>
+  <div class="message" id="msg"></div>
+</div>
+
+<audio id="music" loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+const msg = document.getElementById("msg");
+const music = document.getElementById("music");
+
+let speed = 200;
+let count = 0;
+
+const messages = [
+  "Think again 🤔",
+  "Oops… not allowed 😜",
+  "Are you sure? 💕",
+  "Come on Panchi 😍",
+  "you will miss 🤪",
+  "This NO is broken 😂"
+];
+
+noBtn.addEventListener("mouseover", moveNo);
+noBtn.addEventListener("click", moveNo);
+
+function moveNo() {
+  count++;
+  speed = Math.max(50, speed - 20);
+
+  const x = Math.random() * (window.innerWidth - 100);
+  const y = Math.random() * (window.innerHeight - 100);
+
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+
+  msg.innerText = messages[count % messages.length];
+}
+
+document.getElementById("yesBtn").onclick = () => {
+  document.querySelector(".container").innerHTML =
+    "<h1>Yayyy 💖🥰</h1><p>You are my valentine ❤️ you made my day, Panchi 💕</p>";
+  music.play();
+};
+
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerText = "💖";
+  heart.style.left = Math.random() * 100 + "vw";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 6000);
+}
+
+setInterval(createHeart, 500);
+</script>
+
+</body>
+</html>
+
